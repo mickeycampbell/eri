@@ -38,7 +38,7 @@
 #' plot_eri_pt(elev, veg_type_rc, eri_pt_result)
 #' @export
 plot_eri_pt <- function(elev, veg_type, eri_pt_result){
-  clipper <- terra::buffer(eri_pt$max_poly, 100)
+  clipper <- terra::buffer(eri_pt_result$max_poly, 100)
   elev <- terra::crop(elev, clipper)
   veg_type <- terra::crop(veg_type, clipper)
   ll_ext <- terra::project(veg_type, "epsg:4326") |>
@@ -47,11 +47,11 @@ plot_eri_pt <- function(elev, veg_type, eri_pt_result){
   lon_vals <- pretty(c(ll_ext[1][[1]], ll_ext[2][[1]]))
   grat <- terra::graticule(lon_vals, lat_vals, terra::crs(clipper)) |>
     terra::crop(terra::ext(veg_type))
-  pt_max <- eri_pt$pt_max
+  pt_max <- eri_pt_result$pt_max
   pt_max$rastval <- 1
   pix_max <- terra::rasterize(pt_max, veg_type, "rastval") |>
     terra::as.polygons()
-  pt_min <- eri_pt$pt_min
+  pt_min <- eri_pt_result$pt_min
   pt_min$rastval <- 1
   pix_min <- terra::rasterize(pt_min, veg_type, "rastval") |>
     terra::as.polygons()
@@ -78,15 +78,15 @@ plot_eri_pt <- function(elev, veg_type, eri_pt_result){
                lwd = 3, col = 2)
   terra::plot(pix_max, col = 4, add = T)
   terra::plot(pix_min, col = 2, add = T)
-  terra::plot(eri_pt$max_poly, lwd = 3, bg = "black", lty = 2, add = T)
-  terra::plot(eri_pt$act_poly, lwd = 3, bg = "black", add = T)
-  terra::plot(eri_pt$start_pt, pch = 21, bg = "white", cex = 3, add = T)
+  terra::plot(eri_pt_result$max_poly, lwd = 3, bg = "black", lty = 2, add = T)
+  terra::plot(eri_pt_result$act_poly, lwd = 3, bg = "black", add = T)
+  terra::plot(eri_pt_result$start_pt, pch = 21, bg = "white", cex = 3, add = T)
   legend(x = terra::ext(veg_type)[1],
          y = terra::ext(veg_type)[4],
-         legend = c(bquote(ERI[mean]==.(round(eri_pt$eri_mean, 2))),
-                    bquote(ERI[max]==.(round(eri_pt$eri_max, 2))),
-                    bquote(ERI[min]==.(round(eri_pt$eri_min, 2))),
-                    bquote(ERI[azim]==.(round(eri_pt$eri_az))*degree)),
+         legend = c(bquote(ERI[mean]==.(round(eri_pt_result$eri_mean, 2))),
+                    bquote(ERI[max]==.(round(eri_pt_result$eri_max, 2))),
+                    bquote(ERI[min]==.(round(eri_pt_result$eri_min, 2))),
+                    bquote(ERI[azim]==.(round(eri_pt_result$eri_az))*degree)),
          x.intersp = 0,
          bg = "lightgray")
   terra::sbar(xy = c(terra::ext(veg_type)[1] +
