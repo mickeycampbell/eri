@@ -38,7 +38,6 @@
 #' plot_eri_pt(elev, veg_type_rc, eri_pt_result)
 #' @export
 plot_eri_pt <- function(elev, veg_type, eri_pt_result){
-  dev.off()
   clipper <- terra::buffer(eri_pt$max_poly, 100)
   elev <- terra::crop(elev, clipper)
   veg_type <- terra::crop(veg_type, clipper)

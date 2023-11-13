@@ -61,7 +61,7 @@ eri_area <- function(veg_type, tm, aoi, time,
   doParallel::registerDoParallel(clust)
   `%dopar%` <- foreach::`%dopar%`
   eri_chunk_files <- foreach::foreach(i = 1:ncores,
-                                      .export = c("calc_eri", "slope_rate"),
+                                      .export = c("eri_pt", "slope_rate"),
                                       .packages = c("terra", "raster", "gdistance", "Matrix")) %dopar%
     {
       veg_type <- terra::rast(veg_type_file)
@@ -77,7 +77,7 @@ eri_area <- function(veg_type, tm, aoi, time,
       for (cell in cells){
         start_pt <- terra::xyFromCell(eri_mean_rast, cell) |>
           terra::vect(type = "points", crs = terra::crs(eri_mean_rast))
-        eri_vals <- calc_eri(veg_type, tm, start_pt, time)
+        eri_vals <- eri_pt(veg_type, tm, start_pt, time)
         eri_mean_rast[cell] <- eri_vals$eri_mean
         eri_min_rast[cell] <- eri_vals$eri_min
         eri_max_rast[cell] <- eri_vals$eri_max
