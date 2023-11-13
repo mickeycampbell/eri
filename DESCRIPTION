@@ -5,9 +5,11 @@ Version: 0.1.0
 Authors@R: c(
     person("Mickey", "Campbell", , "mickey.campbell57@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4449-9275")))
-Maintainer: Mickey Campbell <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Calculates and maps the Escape Route Index (ERI), a spatially
+    explicit measure of evacuation capacity in wildland environments. The ERI
+    is a useful spatial decision support metric for determining where to (and
+    where not to) direct wildland firefighters and associated resources to 
+    ensure a safe and effective response.
 URL: https://github.com/mickeycampbell/eri
 BugReports: https://github.com/mickeycampbell/eri/issues
 License: use_mit_license()
