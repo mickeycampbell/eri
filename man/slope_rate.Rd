@@ -7,18 +7,21 @@
 slope_rate(slope)
 }
 \arguments{
-\item{slope}{Numeric. Terrain slope, in degrees. You can provide a single slopes or a vector of multiple slopes.}
+\item{slope}{numeric. Terrain slope, in degrees. You can provide a single slopes or a vector of multiple slopes.}
 }
 \value{
-Returns a numeric vector the same length as that which is provided to the `slope` argument. The estimated pedestrian travel rate, in meters per second, resulting from traversing terrain with the defined slope(s).
+A numeric vector the same length as that which is provided to the \code{slope} argument. The estimated pedestrian travel rate, in meters per second, resulting from traversing terrain with the defined slope(s).
 }
 \description{
 Estimate pedestrian travel rate, in meters per second, as a function of the terrain slope, in degrees.
 }
 \details{
-The equation that forms the basis of this calculation emerged from an analysis of crowdsourced *AllTrails* GPS data. It represents the median slope-travel rate model among a broad-ranging population of individuals on a similarly diverse range of trails throughout the US.
+The equation that forms the basis of this calculation emerged from \href{https://content.csbs.utah.edu/~pdennison/reprints/denn/2022_Campbell_etal_CEUS.pdf}{an analysis of crowdsourced \emph{AllTrails} GPS data}. It represents the median slope-travel rate model among a broad-ranging population of individuals on a similarly diverse range of trails throughout the US.
 }
 \examples{
+# estimate travel rate on a flat slope
 travel_rate <- slope_rate(0)
+
+# estimate travel rate on a vector of several downhill and uphill slopes
 travel_rate <- slope_rate(c(-30,-15,0,15,30))
 }
